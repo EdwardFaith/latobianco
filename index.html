@@ -3,250 +3,654 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lato Bianco - Manifesto</title>
+    <title>LATO BIANCO | Manifesto</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --accent-color: #555555;
+            --bg: #ffffff;
+            --fg: #111111;
+            --gray: #888888;
+            --brass: #bda36b;
+            --brass-light: #d4c29c;
+            --border: #f0f0f0;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.8;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
+            background-color: var(--bg);
+            color: var(--fg);
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: 50px;
         }
+        
+        html { scroll-behavior: smooth; }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 80px 30px;
+        /* Top Desktop Nav */
+        .brass-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--brass);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            padding: 12px 20px;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        h1 {
+        
+        .brass-nav a {
             font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--brass);
+            text-decoration: none;
+            transition: color 0.2s, transform 0.2s;
+        }
+        
+        .brass-nav a:hover {
+            color: #000;
+        }
+
+        /* Mobile Nav Toggle & Bottom Sheet */
+        .mobile-nav-toggle, .bottom-sheet-overlay, .bottom-sheet { display: none; }
+
+        @media (max-width: 768px) {
+            .brass-nav { display: none; }
+            body { padding-top: 0; }
+            .hero { height: 100vh; }
+            
+            .mobile-nav-toggle {
+                display: block;
+                position: fixed;
+                bottom: 25px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--brass);
+                color: #fff;
+                padding: 14px 28px;
+                border-radius: 40px;
+                font-family: 'Inter', sans-serif;
+                font-size: 0.75rem;
+                font-weight: 600;
+                letter-spacing: 0.15em;
+                z-index: 2000;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                cursor: pointer;
+                text-transform: uppercase;
+                transition: transform 0.2s;
+            }
+            .mobile-nav-toggle:active { transform: translateX(-50%) scale(0.95); }
+
+            .bottom-sheet-overlay {
+                display: block;
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.4);
+                z-index: 2001;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s;
+            }
+            .bottom-sheet-overlay.open { opacity: 1; visibility: visible; }
+
+            .bottom-sheet {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                bottom: -100%;
+                left: 0;
+                width: 100%;
+                height: 65vh;
+                background: #fff;
+                border-top-left-radius: 24px;
+                border-top-right-radius: 24px;
+                box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+                z-index: 2002;
+                transition: bottom 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+                padding: 30px 25px;
+            }
+            .bottom-sheet.open { bottom: 0; }
+            
+            .bottom-sheet-title {
+                font-family: 'Cormorant Garamond', serif;
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+                text-align: center;
+                color: #000;
+            }
+
+            .bottom-sheet-content {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                overflow-y: auto;
+            }
+            
+            .bottom-sheet a {
+                text-decoration: none;
+                color: #222;
+                font-family: 'Inter', sans-serif;
+                font-size: 0.9rem;
+                font-weight: 400;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .bottom-sheet-close {
+                margin-top: 20px;
+                text-align: center;
+                color: var(--gray);
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+                cursor: pointer;
+                text-transform: uppercase;
+                padding: 10px;
+            }
+
+            .editorial-section {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 8vh 0;
+            }
+            .section-header { position: relative; top: 0; }
+            .quote-container blockquote { font-size: 1.5rem; }
+            .section-title { font-size: 1.6rem; }
+            .section-content { font-size: 0.95rem; }
+            .container { padding: 0 6vw; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero */
+        .hero {
+            height: calc(100vh - 50px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero img {
+            max-height: 85vh;
+            max-width: 90vw;
+            width: auto;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        /* Quote */
+        .quote-section {
+            padding: 12vh 5vw;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .quote-container {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .quote-container blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            line-height: 1.4;
             font-weight: 300;
-            letter-spacing: 8px;
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            color: var(--accent-color);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .quote {
-            font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.5rem;
-            line-height: 1.6;
-            margin: 60px 0;
-            padding: 0 40px;
-            border-left: 2px solid var(--text-color);
-            color: #333;
+            color: #000;
         }
 
         .quote-author {
             display: block;
-            text-align: right;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            font-style: normal;
-            margin-top: 15px;
-            font-weight: 600;
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--gray);
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-top: 80px;
-            margin-bottom: 30px;
+        /* Sections container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        /* Sections */
+        .editorial-section {
+            display: grid;
+            grid-template-columns: 2.5fr 7.5fr;
+            gap: 3rem;
+            padding: 10vh 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section-header {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        
+        .section-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--brass);
+            margin-bottom: 0.5rem;
+            display: block;
+            letter-spacing: 0.1em;
+        }
+        
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            line-height: 1.1;
             font-weight: 400;
-            text-align: center;
+            color: #000;
         }
 
-        h3 {
-            font-size: 1.5rem;
-            margin-top: 50px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        p {
-            margin-bottom: 25px;
+        .section-content {
+            font-size: 0.9rem;
+            line-height: 1.7;
             font-weight: 300;
-            font-size: 1.1rem;
-            text-align: justify;
+            color: #333;
         }
 
-        .manifesto-points {
-            counter-reset: manifesto-counter;
+        .section-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #000;
+            margin: 2.5rem 0 1rem 0;
+        }
+        
+        .section-content p {
+            margin-bottom: 1.2rem;
+        }
+        
+        .section-content ul {
+            margin: 1.5rem 0 2rem 0;
+            padding-left: 0;
             list-style: none;
-            padding: 0;
-            margin-top: 40px;
         }
-
-        .manifesto-points li {
+        
+        .section-content li {
+            margin-bottom: 1rem;
             position: relative;
-            margin-bottom: 40px;
-            padding-left: 60px;
-            font-weight: 300;
-            font-size: 1.1rem;
-            text-align: justify;
+            padding-left: 1.2rem;
         }
-
-        .manifesto-points li::before {
-            counter-increment: manifesto-counter;
-            content: counter(manifesto-counter) ".";
+        
+        .section-content li::before {
+            content: "—";
             position: absolute;
             left: 0;
-            top: 0;
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-color);
-            line-height: 1;
+            color: var(--brass);
         }
 
-        strong {
-            font-weight: 600;
-            color: var(--text-color);
+        .section-content strong {
+            font-weight: 500;
+            color: #000;
         }
 
-        .footer {
+        .editorial-section:last-of-type {
+            border-bottom: none;
+            padding-bottom: 2vh;
+        }
+
+        footer {
+            padding: 2vh 5vw 4vh 5vw;
             text-align: center;
-            margin-top: 100px;
-            padding: 40px 0;
-            border-top: 1px solid #eaeaea;
-            font-size: 0.9rem;
-            color: var(--accent-color);
-            letter-spacing: 1px;
         }
-
-        .contact-info {
-            margin-top: 20px;
+        footer h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--brass);
         }
-        
-        a {
-            color: var(--text-color);
+        footer p {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--gray);
+            letter-spacing: 0.05em;
+        }
+        footer a {
+            color: var(--fg);
             text-decoration: none;
-            border-bottom: 1px solid currentColor;
-            transition: opacity 0.2s;
+            border-bottom: 1px solid var(--brass-light);
+            transition: border-color 0.2s;
         }
-        
-        a:hover {
-            opacity: 0.6;
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; letter-spacing: 4px; }
-            .quote { font-size: 1.2rem; padding: 0 20px; }
-            .manifesto-points li { padding-left: 40px; }
-            .manifesto-points li::before { font-size: 1.5rem; }
+        footer a:hover {
+            border-color: var(--brass);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Lato Bianco</h1>
-            <div class="subtitle">Spazio di Ricerca, Materia e Comunità</div>
-        </header>
 
-        <div class="quote">
-            "Lato Bianco non è una superficie passiva, ma un atto di presenza. Nasce per strappare l’arte 
-            dalle pareti dell’autoreferenzialità e restituirla alla strada, alle scuole, agli ospedali e alle cave 
-            che hanno scolpito la nostra storia. Non cerchiamo il decoro o l'applauso d'occasione: 
-            cerchiamo la materia, il rigore e la responsabilità sociale. Il nostro 'lato bianco' è uno spazio 
-            aperto e ancora non scritto, dove ogni artista e ogni cittadino può scegliere di non essere 
-            soltanto spettatore, ma parte attiva di una rinascita reale del territorio."
+    <nav class="brass-nav">
+        <a href="#sezione-01">I - Poetica</a>
+<a href="#sezione-02">II - Manifesto</a>
+<a href="#sezione-03">III - Modus Operandi</a>
+<a href="#sezione-04">IV - Interventi</a>
+<a href="#sezione-05">V - Editorialità</a>
+<a href="#sezione-06">VI - Regolamento</a>
+<a href="#sezione-07">Integrazione</a>
+
+    </nav>
+
+    <div class="mobile-nav-toggle" id="mobile-nav-toggle">CAPITOLI</div>
+    <div class="bottom-sheet-overlay" id="bottom-sheet-overlay"></div>
+    <div class="bottom-sheet" id="bottom-sheet">
+        <div class="bottom-sheet-title">Indice</div>
+        <div class="bottom-sheet-content">
+            <a href="#sezione-01">I - Poetica</a>
+<a href="#sezione-02">II - Manifesto</a>
+<a href="#sezione-03">III - Modus Operandi</a>
+<a href="#sezione-04">IV - Interventi</a>
+<a href="#sezione-05">V - Editorialità</a>
+<a href="#sezione-06">VI - Regolamento</a>
+<a href="#sezione-07">Integrazione</a>
+
+        </div>
+        <div class="bottom-sheet-close" id="bottom-sheet-close">Chiudi</div>
+    </div>
+
+    <div class="hero">
+        <img src="logo.png" alt="LATO BIANCO">
+    </div>
+
+    <div class="quote-section">
+        <div class="quote-container reveal">
+            <blockquote>"Lato Bianco non è una superficie passiva, ma un atto di presenza. Nasce per strappare l’arte dalle pareti dell’autoreferenzialità e restituirla alla strada, alle scuole, agli ospedali e alle cave che hanno scolpito la nostra storia. Non cerchiamo il decoro o l'applauso d'occasione: cerchiamo la materia, il rigore e la responsabilità sociale. Il nostro 'lato bianco' è uno spazio aperto e ancora non scritto, dove ogni artista e ogni cittadino può scegliere di non essere soltanto spettatore, ma parte attiva di una rinascita reale del territorio."</blockquote>
             <span class="quote-author">— Giuseppe Barilaro</span>
         </div>
-
-        <h2>Il Manifesto</h2>
-
-        <p>
-            Lato Bianco nasce dall’esigenza viscerale di scuotere e superare le dinamiche provinciali e 
-            tradizionali del fare e mostrare arte. Al centro del progetto vi è l’artista, restituito alla sua 
-            completa poetica e alla sua profonda filosofia espressiva. Lato Bianco rifiuta categoricamente 
-            che la figura dell’artista venga declassata a mero decoro visivo per eventi goliardici o 
-            intrattenimento superficiale: relegare l’opera in contesti privi di riconoscimento istituzionale mina 
-            la credibilità della professione, genera una cronica assenza di visibilità e recide il legame 
-            fondamentale con un pubblico qualificato e addetto ai lavori.
-        </p>
-        <p>
-            Per queste ragioni, Lato Bianco promuove e realizza esclusivamente progetti ed eventi capaci 
-            di integrarsi virtuosamente con il tessuto urbano e imprenditoriale della città di Carrara e delle 
-            realtà internazionali. Le azioni espositive e performative avranno luogo unicamente all’interno di 
-            spazi di rilievo riconosciuto o in luoghi che abbiano scritto la storia di Carrara, proiettando 
-            questa medesima rigorosa visione verso le altre città d’Italia e all’estero.
-        </p>
-
-        <ul class="manifesto-points">
-            <li>
-                <strong>Purezza dell’Essenza Materica:</strong> Un'arte fondata sull'onestà, sullo studio rigoroso e sulla 
-                ricerca continua, libera da ornamenti superflui e sovrastrutture accademiche. Lato Bianco 
-                rifiuta i linguaggi sterili e autoreferenziali in cui l'opera d'arte si affida unicamente a 
-                sovrastrutture verbali slegate dalla consistenza reale. L'arte si apre alla sperimentazione 
-                e alla collettività, tornando a essere un linguaggio comunicativo, sociale e vivo, radicato in 
-                una profonda maestria tecnica e artigianale. La ricerca rigorosa, la materia e il fare 
-                concreto tornano così a guidare e nutrire l'idea.
-            </li>
-            <li>
-                <strong>Il Territorio come Narrazione e Simbiosi Industriale:</strong> L’artista come interprete della 
-                materia e del paesaggio. Il racconto del territorio si attua prevalentemente attraverso la 
-                massima espressione artistica e l'uso consapevole della materia, in primis il marmo 
-                bianco di Carrara. L’artista vive in perfetta simbiosi con la città, ribaltando la percezione 
-                dell'isolamento montuoso: la montagna e la cava non sono un regresso o un limite, ma 
-                una virtù e una risorsa poetica. Il marmo, materiale eroso, severo ed elegante, viene 
-                trasformato in un’opera preziosa, custode e simbolo dell’identità del territorio.
-            </li>
-            <li>
-                <strong>La Missione Territoriale e l'Apertura al Contemporaneo:</strong> Radici locali e respiro 
-                internazionale. Per i primi tre anni, Lato Bianco pone al centro della propria ricerca e 
-                valorizzazione gli artisti che vivono e operano sul territorio carrarino. Tuttavia, qualora non 
-                riscontrasse in essi la volontà di condividere una comunicazione efficace e un progetto 
-                finalizzato alla crescita del territorio, Lato Bianco si riserva il diritto di allargare il proprio 
-                raggio d'azione. La mission rimarrà focalizzata su Carrara, ma accoglierà artisti 
-                provenienti da altre realtà, non solo per collaborazioni temporanee, ma per invitarli 
-                attivamente ad aprire i propri studi e atelier nel paese, rigenerando il tessuto artistico 
-                locale.
-            </li>
-            <li>
-                <strong>Rigore Scientifico e Collocazione Istituzionale:</strong> Nessun compromesso sulla qualità. 
-                Lato Bianco opera e si esprime unicamente attraverso contesti e profili di altissimo livello. 
-                Ogni mostra, talk o intervento sarà guidata da un rigore scientifico e curatoriale ben 
-                preciso, muovendosi esclusivamente all'interno di sedi accreditate, istituzionali (siti MiC / 
-                MiBACT, UNESCO, spazi pubblici e gallerie di rilevanza) e con il supporto di un Comitato 
-                Scientifico qualificato.
-            </li>
-        </ul>
-
-        <div class="footer">
-            <div>ASSOCIAZIONE CULTURALE LATO BIANCO — CARRARA</div>
-            <div class="contact-info">
-                MAIL: <a href="mailto:infoartelatobianco@gmail.com">infoartelatobianco@gmail.com</a> | 
-                IG: <a href="https://instagram.com/LatoBianco" target="_blank">LatoBianco</a>
-            </div>
-        </div>
     </div>
+
+    <div class="container">
+
+        <section id="sezione-01" class="editorial-section reveal">
+            <div class="section-header">
+                <span class="section-number">CAP. 01</span>
+                <h2 class="section-title">SEZIONE I – LA POETICA E IL MODELLO ASSOCIATIVO</h2>
+            </div>
+            <div class="section-content">
+                <h3>1. La Visione e la Missione: L'Arte come Presidio del Territorio</h3>
+<p>Lato Bianco non è soltanto un contenitore artistico, ma una forza viva, aperta e partecipativa che nasce per agire concretamente sul territorio, partendo dalla città di Carrara per aprirsi a un raggio d'azione istituzionale e nazionale. La visione si fonda sull'idea che l'arte non debba rimanere isolata nei luoghi espositivi tradizionali, ma debba farsi intervento sociale, cura e presenza attiva. Lato Bianco si lancia in prima linea collaborando con enti ministeriali, strutture ospedaliere, reparti oncologici, scuole e istituzioni, offrendo supporto tangibile attraverso donazioni, talk, progetti educativi e azioni di aiuto concreto. Il "Lato Bianco" rappresenta lo spazio delle possibilità: una superficie ancora da scrivere,</p>
+<p>inclusiva e accogliente, capace di connettere la sensibilità artistica con le necessità reali della comunità.</p>
+<h3>2. Struttura dell'Associazione, Materiale e Fidelizzazione</h3>
+<p>Nato come gruppo operativo, Lato Bianco si evolve in Associazione. Per creare un rapporto di profonda fiducia, rispetto reciproco e appartenenza, tutti i tesserati e associati riceveranno periodicamente materiale informativo e kit con i loghi ufficiali da affiggere/esporre nelle proprie attività lavorative o spazi. Tutto questo, nell'arco del primo anno, è totalmente gratuito, con l'obiettivo di costruire una rete solida e fidelizzata sul territorio.</p>
+<h3>3. Modello di Promozione, Livelli di Pubblicità e Investimento</h3>
+<p>A completezza del primo anno, sulla base delle proposte dell'Associazione, Lato Bianco predisporrà tre livelli differenziati di investimento e visibilità promozionale:</p>
+<p>Livello di Adesione Descrizione e Regola Dettagli del Servizio</p>
+<p>Associati Sostenitori Senza esercizio commerciale. Totale esenzione da quote promozionali prestabilite.</p>
+<p>La partecipazione si basa su atti di donazione e sostegno libero, volti unicamente a sposare la causa e la visione di Lato Bianco. Associati Attivi Proprietari di esercizi commerciali sul territorio.</p>
+<p>Offre un approfondimento e una valorizzazione dedicati della struttura, con copertura promozionale totalitaria sui canali social e sul sito web in base all'investimento scelto. Tesseramento Artisti Artisti del territorio e non. Suddiviso in tre livelli (Base, Medio, Bianco).</p>
+<p>Dalla mappatura base con orari e contatti, passando per la biografia e copertura social rafforzata, fino al Livello Bianco con targhetta ufficiale, portfolio online, newsletter per curatori e galleristi e visite guidate agli studi.</p>
+<h3>4. Autonomia dell'Artista e Rispetto del Percorso Individuale</h3>
+<p>Lato Bianco riconosce e rispetta profondamente l'identità e l'indipendenza di ogni singolo artista:</p>
+<ul>
+<li><strong>Autonomia Espressiva e Professionale:</strong> Il percorso individuale dei tesserati non è oggetto di ingerenza da parte dell'associazione.</li>
+<li><strong>Utilizzo del Nome:</strong> Gli artisti mantengono la piena libertà nelle loro mostre personali o collettive esterne, esenti dall'obbligo di utilizzare il nome o il logo "Lato Bianco".</li>
+<li><strong>Identità Collettiva:</strong> L'identità di "Lato Bianco" viene evocata e utilizzata esclusivamente quando si parla delle manifestazioni d'interesse e dei progetti firmati dal Collettivo o dall'Associazione.</li>
+</ul><h3>5. Il Collettivo Artistico e la Governance Scientifica</h3>
+<p>Il Collettivo Artistico Lato Bianco si costituisce originariamente per mezzo dei soci fondatori a partire dalla data di registrazione dello statuto e del contestuale manifesto artistico. Successivamente alla sua costituzione, l'ingresso di nuovi membri all'interno del Collettivo potrà avvenire secondo due modalità: tramite candidatura sottoposta a selezione autonoma e invito, al fine di vagliare il percorso artistico del candidato, oppure mediante selezione diretta operata dai fondatori dell'Associazione. In entrambi i casi, l'ammissione definitiva è subordinata all'esito positivo di una votazione sulla proposta di inserimento.</p>
+<ul>
+<li><strong>Attività del Collettivo:</strong> Il gruppo si propone per interventi di alto profilo (mostre, talk, simposi, interventi accademici e scolastici) all'interno di sedi riconosciute e di prestigio (istituzioni ministeriali, siti UNESCO, MiC / MiBACT, enti pubblici).</li>
+</ul><h3>N.B. – Evento Annuale Ufficiale e Presentazione del Collettivo</h3>
+<p>A cadenza annuale, l'Associazione organizzerà un evento ufficiale sotto forma di Conferenza o Talk pubblico. Durante questo appuntamento:</p>
+<ul>
+<li>Verrà sancita e rinnovata la presenza ufficiale dell'Associazione sul territorio.</li>
+<li><strong>Direzione e Comitato Scientifico:</strong> A garanzia della qualità curatoriale e del rigore professionale, il Collettivo sarà guidato da un Curatore, selezionato su base annuale, e da un Comitato Scientifico multidisciplinare composto da figure di riferimento del settore (un gallerista, un critico d'arte, un imprenditore del settore culturale e altre figure rilevanti).</li>
+<li>Verranno presentati i membri del progetto e le relative cariche direttive e scientifiche.</li>
+<li>Sarà fornito un resoconto completo del lavoro svolto durante l'anno, sia in forma documentale che attraverso un allestimento espositivo dedicato.</li>
+<li>In questa sede solenne verranno presentati ufficialmente gli Artisti del Collettivo Lato Bianco, segnando l'avvio formale dei progetti artistici ad alto profilo istituzionale per l'anno a venire.</li>
+</ul>
+
+            </div>
+        </section>
+    
+        <section id="sezione-02" class="editorial-section reveal">
+            <div class="section-header">
+                <span class="section-number">CAP. 02</span>
+                <h2 class="section-title">SEZIONE II – IL MANIFESTO LATO BIANCO</h2>
+            </div>
+            <div class="section-content">
+                <h3>Premessa Concettuale</h3>
+<p>Lato Bianco nasce dall’esigenza viscerale di scuotere e superare le dinamiche provinciali e tradizionali del fare e mostrare arte. Al centro del progetto vi è l’artista, restituito alla sua completa poetica e alla sua profonda filosofia espressiva. Lato Bianco rifiuta categoricamente che la figura dell’artista venga declassata a mero decoro visivo per eventi goliardici o intrattenimento superficiale: relegare l’opera in contesti privi di riconoscimento istituzionale mina</p>
+<p>la credibilità della professione, genera una cronica assenza di visibilità e recide il legame fondamentale con un pubblico qualificato e addetto ai lavori. Per queste ragioni, Lato Bianco promuove e realizza esclusivamente progetti ed eventi capaci di integrarsi virtuosamente con il tessuto urbano e imprenditoriale della città di Carrara e delle realtà internazionali. Le azioni espositive e performative avranno luogo unicamente all’interno di spazi di rilievo riconosciuto o in luoghi che abbiano scritto la storia di Carrara, proiettando questa medesima rigorosa visione verso le altre città d’Italia e all’estero. (A cadenza annuale, gli artisti che desiderano far parte del Collettivo Artistico Lato Bianco sono chiamati a sottoscrivere, incarnare e riflettere la propria ricerca attraverso le seguenti linee guida)</p>
+<h3>I Punti del Manifesto</h3>
+<h3>1. Purezza dell’Essenza Materica: Un'arte fondata sull'onestà, sullo studio rigoroso e sulla ricerca continua, libera da ornamenti superflui e sovrastrutture accademiche. Lato Bianco rifiuta i linguaggi sterili e autoreferenziali in cui l'opera d'arte si affida unicamente a sovrastrutture verbali slegate dalla consistenza reale. L'arte si apre alla sperimentazione e alla collettività, tornando a essere un linguaggio comunicativo, sociale e vivo, radicato in una profonda maestria tecnica e artigianale. La ricerca rigorosa, la materia e il fare concreto tornano così a guidare e nutrire l'idea.</h3>
+<h3>2. Il Territorio come Narrazione e Simbiosi Industriale: L’artista come interprete della materia e del paesaggio. Il racconto del territorio si attua prevalentemente attraverso la massima espressione artistica e l'uso consapevole della materia, in primis il marmo bianco di Carrara. L’artista vive in perfetta simbiosi con la città, ribaltando la percezione dell'isolamento montuoso: la montagna e la cava non sono un regresso o un limite, ma una virtù e una risorsa poetica. Il marmo, materiale eroso, severo ed elegante, viene trasformato in un’opera preziosa, custode e simbolo dell’identità del territorio.</h3>
+<h3>3. La Missione Territoriale e l'Apertura al Contemporaneo: Radici locali e respiro internazionale. Per i primi tre anni, Lato Bianco pone al centro della propria ricerca e valorizzazione gli artisti che vivono e operano sul territorio carrarino. Tuttavia, qualora non riscontrasse in essi la volontà di condividere una comunicazione efficace e un progetto finalizzato alla crescita del territorio, Lato Bianco si riserva il diritto di allargare il proprio raggio d'azione. La mission rimarrà focalizzata su Carrara, ma accoglierà artisti provenienti da altre realtà, non solo per collaborazioni temporanee, ma per invitarli attivamente ad aprire i propri studi e atelier nel paese, rigenerando il tessuto artistico locale.</h3>
+<h3>4. Rigore Scientifico e Collocazione Istituzionale: Nessun compromesso sulla qualità. Lato Bianco opera e si esprime unicamente attraverso contesti e profili di altissimo livello. Ogni mostra, talk o intervento sarà guidata da un rigore scientifico e curatoriale ben preciso, muovendosi esclusivamente all'interno di sedi accreditate, istituzionali (siti MiC / MiBACT, UNESCO, spazi pubblici e gallerie di rilevanza) e con il supporto di un Comitato Scientifico qualificato.</h3>
+
+            </div>
+        </section>
+    
+        <section id="sezione-03" class="editorial-section reveal">
+            <div class="section-header">
+                <span class="section-number">CAP. 03</span>
+                <h2 class="section-title">SEZIONE III – MODUS OPERANDI: ANNO 0</h2>
+            </div>
+            <div class="section-content">
+                <p>(Fase di Fondazione e Radicamento) L’Anno 0 rappresenta la fase embrionale e costitutiva di Lato Bianco. Superata la prima fase di aggregazione dei sostenitori e degli associati, l'Associazione avvia un percorso operativo mirato a costruire ponti solidi con il tessuto pubblico e privato della città.</p>
+<h3>1. Azioni Operative: Confronto, Sostenibilità e Partnership</h3>
+<p>In questo primo anno, Lato Bianco attiva tavoli di confronto permanenti e talk tematici rivolti a istituzioni, aziende, esercizi commerciali e industrie locali (comprese le realtà del settore lapideo).</p>
+<ul>
+<li><strong>Modello Economico e Donazioni:</strong> L'associazione presenta proposte progettuali autofinanziate, raccoglie donazioni e accetta sponsorizzazioni da parte di enti locali e aziende.</li>
+<li><strong>Impatto Sociale:</strong> In cambio del sostegno del territorio, Lato Bianco garantisce il proprio impegno diretto in interventi a carattere solidale, educativo e sociale.</li>
+</ul><h3>2. Che Cosa Chiede Lato Bianco al Territorio e alle Istituzioni</h3>
+<p>Lato Bianco nasce a seguito di un'analisi dettagliata e rigorosa delle dinamiche culturali locali. Per operare al meglio, chiede:</p>
+<ul>
+<li><strong>Collaborazione e Armonia Istituzionale:</strong> Un dialogo aperto a tutto tondo con l'Amministrazione Comunale, l'Assessore alla Cultura e la Giunta, per agire in totale serenità e sinergia con le associazioni già presenti sul territorio.</li>
+<li><strong>Integrazione e Riconoscimento:</strong> L'inserimento attivo nei tavoli di concertazione del tessuto sociale e artistico carrarino, con il riconoscimento di referenza istituzionale per le questioni legate all'arte contemporanea.</li>
+<li><strong>Alleanza con il Settore Industriale:</strong> Pieno sostegno e collaborazione con le aziende del marmo, senza posizioni preconcette, valorizzando e supportando la millenaria attività e tradizione delle cave.</li>
+<li><strong>Sede Operativa e Laboratorio Permanente:</strong> La concessione o individuazione di uno spazio fisico operativo che funga da centro di ricerca, postazione di lavoro condivisa e punto di ritrovo per gli artisti, orientato unicamente alla creazione di affinità, coesione e produzione culturale.</li>
+</ul><h3>3. Che Cosa Propone</h3>
+<p>Tra le prime grandi azioni strategiche per la città, Lato Bianco propone la ripresa e rifondazione dello storico Simposio di Scultura, riprogettato per legare in modo indissolubile le aziende del marmo alla ricerca artistica contemporanea (scultorea e multidisciplinare).</p>
+<h3>4. Manifestazione d'Intento: Cosa NON È Lato Bianco</h3>
+<p>Per garantire la massima chiarezza e tutela del progetto, Lato Bianco stabilisce con fermezza i propri confini etici e operativi. Lato Bianco NON è e non sarà mai:</p>
+<ul>
+<li>Un gruppo di protesta, sovversivo o divisivo.</li>
+<li>Un collettivo incapace di instaurare un dialogo istituzionale.</li>
+<li>Uno strumento o una vetrina da sfruttare per tornaconti, interessi o faide personali. La serenità, l'etica del lavoro e la trasparenza sono i pilastri inviolabili dell'associazione.</li>
+</ul><h3>5. Governance, Tutela del Manifesto e Leadership</h3>
+<p>(Clausola di Garanzia e Salvaguardia del Progetto) L’Associazione e la visione di "Lato Bianco" nascono dall'ideazione e dall'iniziativa del fondatore, Giuseppe Barilaro. Concessione del Progetto: L'Associazione, costituita legalmente, viene concessa e affidata al gruppo attraverso un accordo/contratto tacito a cadenza annuale. Tutela dell'Identità: Qualora si dovessero verificare deviazioni dalle linee guida, inadeguatezze o comportamenti lesivi dell'etica e della poetica del Manifesto, i soci fondatori mantengono la piena e insindacabile facoltà di:</p>
+<ul>
+<li>Escludere dall'Associazione o dal Collettivo qualsiasi membro non rientrante nei parametri stabiliti.</li>
+<li>Far decadere il gruppo operativo e sciogliere formalmente l’Associazione presso l’Agenzia delle Entrate, annullando l'accordo mediante comunicazione scritta.</li>
+</ul>
+
+            </div>
+        </section>
+    
+        <section id="sezione-04" class="editorial-section reveal">
+            <div class="section-header">
+                <span class="section-number">CAP. 04</span>
+                <h2 class="section-title">SEZIONE IV – INTERVENTI AD IMPATTO SOCIALE E STRATEGIA URBANA</h2>
+            </div>
+            <div class="section-content">
+                <p>Piano Operativo degli Interventi (CARRARA)</p>
+<ul>
+<li><strong>Fase 1:</strong> Sociale, Sanità e Solidarietà Urbana: Interventi concreti a supporto dei reparti ospedalieri, scuole e fasce vulnerabili (es. donazioni mirate, installazioni tattiche e progetti educativi).</li>
+<li><strong>Fase 2 & 3:</strong> Coinvolgimento e Monumentalità: Evoluzione verso interventi artistici permanenti sul territorio, valorizzazione del marmo e installazioni pubbliche di alto profilo.</li>
+</ul>
+<p>Linee Guida per la Brand Identity e Comunicazione</p>
+<p>La comunicazione istituzionale deve riflettere il rigore e la pulizia formale del "Lato Bianco". Ogni uscita pubblica, canale social o materiale promozionale deve attenersi agli standard approvati dal Comitato Scientifico.</p>
+
+            </div>
+        </section>
+    
+        <section id="sezione-05" class="editorial-section reveal">
+            <div class="section-header">
+                <span class="section-number">CAP. 05</span>
+                <h2 class="section-title">SEZIONE V – EDITORIALITÀ, MEMORIA E SVILUPPO FUTURO</h2>
+            </div>
+            <div class="section-content">
+                <h3>Premessa alla Collana Editoriale e al Rendiconto</h3>
+<p>Annuale</p>
+<p>La misura della credibilità di Lato Bianco non risiede soltanto nella qualità concettuale delle sue idee, ma nella trasparenza, nella continuità e nella tracciabilità del suo operato. L’attività artistica, quando si fa presidio sociale e intervento sul territorio, necessita di una memoria storica rigorosa. Per questa ragione, l’Associazione rifiuta la frammentarietà della comunicazione estemporanea e sceglie la forma solenne della pubblicazione editoriale. Il rendiconto annuale non è inteso come un mero bilancio burocratico, ma come un atto di restituzione etica e culturale verso la comunità di Carrara, gli associati, i sostenitori e le istituzioni che hanno riposto fiducia nel progetto. Attraverso la documentazione puntuale di ogni cantiere sociale, mostra, talk e donazione, Lato Bianco trasforma l'azione tangibile in un documento scientifico, scientificamente catalogato e distribuito. La nascita della Collana Ufficiale Lato Bianco risponde a una triplice esigenza:</p>
+<h3>1. Garantire Trasparenza Assoluta: Offrire a ogni tesserato la certezza di come le risorse e le energie siano state tradotte in valore concreto per il territorio.</h3>
+<h3>2. Costruire un Archivio Storiografico: Consolidare nel tempo la storia dell'Associazione e del Collettivo, dotando ogni volume di dignità accademica e curatoriale attraverso il codice ISBN.</h3>
+<h3>3. Piattaforma Progettuale per il Futuro: Creare lo strumento istituzionale con cui presentare la solidità e la maturità del gruppo a commissioni di bando, enti ministeriali e partner internazionali per le future installazioni monumentali e urbane.</h3>
+<h3>1. Collana Editoriale con Codice ISBN</h3>
+<p>Ogni singola azione, intervento sociale, donazione o progetto espositivo realizzato da Lato Bianco verrà accuratamente documentato e raccolto all'interno di un catalogo ufficiale dotato di codice ISBN.</p>
+<ul>
+<li><strong>Trasparenza e Rendicontazione:</strong> Questo strumento permetterà di restituire a tutti gli associati, sostenitori e partner una testimonianza tangibile e rigorosa del lavoro svolto durante l'anno.</li>
+<li><strong>Archivio Stampa e Valore Storico:</strong> I volumi andranno a comporre la Collana Ufficiale Lato Bianco, un archivio storiografico e un biglietto da visita istituzionale fondamentale da presentare a enti, curatori e commissioni per i progetti futuri.</li>
+</ul><h3>2. Evoluzione Estetica e Impatto Monumentale sul Territorio</h3>
+<p>Il percorso di Lato Bianco non si ferma all'assistenza o al piccolo intervento sociale: le azioni di Fase 1 sono il presupposto etico per un disegno urbano di più ampia portata.</p>
+<ul>
+<li><strong>Riqualificazione del Paesaggio Urbano:</strong> L'Associazione intende influire in modo permanente sull'estetica del territorio carrarino e nazionale attraverso la progettazione e l'installazione di opere d'arte contemporanea in piazze, rotonde, snodi stradali e spazi pubblici di rilievo.</li>
+<li><strong>Strumenti di Realizzazione:</strong> La concretezza di queste grandi opere monumentali sarà garantita attraverso la partecipazione a bandi pubblici (locali, nazionali ed europei), l'attrazione di sponsorizzazioni private e la presentazione di proposte dirette in convenzione con i Comuni e le Soprintendenze.</li>
+</ul>
+
+            </div>
+        </section>
+    
+        <section id="sezione-06" class="editorial-section reveal">
+            <div class="section-header">
+                <span class="section-number">CAP. 06</span>
+                <h2 class="section-title">SEZIONE VI – INTEGRAZIONI OPERATIVE E REGOLAMENTO INTERNO</h2>
+            </div>
+            <div class="section-content">
+                <h3>1. Selezione e Ingresso nel Collettivo Artistico (Fine Anno 1)</h3>
+<p>L'ingresso nel Collettivo Artistico non è automatico, ma avviene al termine del primo anno di attività secondo criteri di merito e condivisione della poetica:</p>
+<ul>
+<li><strong>Modalità di Selezione:</strong> Il Curatore annuale e il Comitato Scientifico valuteranno i lavori, la partecipazione attiva e l'adesione rigorosa ai principi del Manifesto da parte degli Associati Attivi e dei Tesserati.</li>
+<li><strong>Call e Convocazione:</strong> Verrà aperta una call interna in cui gli artisti potranno presentare la propria candidatura, sulla quale il Comitato esprimerà un giudizio insindacabile, garantendo così altissimi standard qualitativi per le mostre istituzionali (UNESCO, MiBACT, ecc.).</li>
+</ul><h3>2. Tempistiche di Tesseramento e Richiesta Patrocini</h3>
+<p>Per garantire una gestione fluida della comunicazione e della mappatura:</p>
+<ul>
+<li><strong>Finestra di Tesseramento:</strong> La campagna di tesseramento e rinnovo si apre ufficialmente ogni anno in occasione dell'evento/talk annuale.</li>
+<li><strong>Richiesta Servizi e Patrocini:</strong> Gli artisti tesserati che desiderano il patrocinio, la copertura social o la promozione di eventi personali devono inoltrare richiesta formale alla segreteria di Lato Bianco con almeno 30 giorni di preavviso, allegando il materiale informativo necessario.</li>
+</ul><h3>3. Gestione e Fruizione della Sede Operativa</h3>
+<p>La sede operativa concessa dal Comune o reperita sul territorio è il cuore pulsante della ricerca del gruppo:</p>
+<ul>
+<li><strong>Codice di Condotta dello Spazio:</strong> Lo studio/laboratorio condiviso è uno spazio di lavoro rigoroso, professionale e istituzionale. È severamente vietato un uso improprio, assembleare-sovversivo o residenziale dello spazio.</li>
+<li><strong>Accesso:</strong> Gli orari di apertura, le turnazioni per l'uso delle postazioni e la responsabilità nella gestione delle attrezzature saranno regolati da un calendario interno supervisionato dal fondatore e dai coordinatori.</li>
+</ul><h3>4. Copertura dei Costi per gli Interventi Sociali e Monumentali</h3>
+<p>Per sostenere i progetti sul territorio (es. corrimano Braille, donazioni sanitarie, opere</p>
+<p>pubbliche):</p>
+<ul>
+<li><strong>Sostenibilità Finanziaria:</strong> I costi vivi dei materiali (marmo, ghisa, installazioni tecniche, trasporti) saranno coperti dai fondi raccolti tramite le sponsorizzazioni delle aziende locali, le donazioni degli associati sostenitori e i bandi pubblici vinti dall'Associazione.</li>
+<li><strong>Contributo Artigiano/Artistico:</strong> Gli artisti e le maestranze coinvolte mettono a disposizione la propria maestria intellettuale e manuale all'interno di un progetto etico e collettivo, garantendo che le risorse economiche siano indirizzate unicamente alla materia prima e alla realizzazione tecnica dell'opera. La retribuzione e il riconoscimento spettanti a ciascun operatore sono regolati da un rigoroso criterio di proporzionalità, calcolato in base alla quantità e all'effettivo volume di lavoro svolto nel corso del progetto.</li>
+</ul>
+
+            </div>
+        </section>
+    
+        <section id="sezione-07" class="editorial-section reveal">
+            <div class="section-header">
+                <span class="section-number">CAP. 07</span>
+                <h2 class="section-title">INTEGRAZIONE UFFICIALE AL MANIFESTO DI LATO BIANCO</h2>
+            </div>
+            <div class="section-content">
+                <p>Regolamento di Tutela, Identità, Funzionamento Interno e Ripartizione Economica</p>
+<h3>ART. 1 – TUTELA DELL'IDENTITÀ VISIVA, PROPRIETÀ DEL LOGO E MODALITÀ DI CONSEGNA</h3>
+<h3>1. Il logo e l'identità visiva di "Lato Bianco" costituiscono patrimonio dell'entità collettiva.</h3>
+<h3>2. Cessione dei Diritti: Qualora il logo venga ideato e realizzato da un membro del gruppo, l'autore si impegna a sottoscrivere e inviare formale comunicazione (tramite email o PEC all'indirizzo dell'Associazione/Presidente) in cui dichiara la cessione a titolo gratuito e indeterminato dei diritti d'immagine e di utilizzo commerciale/promozionale in favore dell'Associazione. L'autore rinuncia all'esclusiva e mantiene unicamente il diritto morale d'autore (il riconoscimento della paternità dell'opera grafica).</h3>
+<h3>3. Inalienabilità: Tale cessione manterrà piena validità anche in caso di recesso, dimissioni o esclusione del componente dal gruppo o dall'Associazione. Non saranno presi in considerazione né approvati loghi vincolati a richieste di rimborso economico o soggetti a clausole di revoca della proprietà in caso di uscita del singolo componente.</h3>
+<h3>4. Standard Tecnici di Consegna: La proposta di logo deve essere presentata all'Associazione all'interno di una cartella contenente i file lavorati secondo precisi criteri grafici professionali (formati PNG, JPG, TIF e vettoriale editable) e pronta per essere legalmente registrata.</h3>
+<h3>5. Sinossi Concettuale: Ogni proposta di logo deve essere accompagnata da una sinossi esplicativa che ne motivi la genesi visiva e il significato concettuale, dimostrando piena aderenza ai valori del Manifesto. Tale sinossi verrà utilizzata per la proiezione e la presentazione ufficiale durante le conferenze stampa.</h3>
+<h3>ART. 2 – ATTIVITÀ FORMATIVE INTERNE, QUOTE E REQUISITI DI PROFESSIONALITÀ</h3>
+<h3>1. Natura della Formazione: L'Associazione può promuovere percorsi di divulgazione e formazione teorica della durata massima di 10 ore complessive per modulo, e valuta le proposte avanzate dai soci e da soggetti terzi al fine di contribuire culturalmente alla visione e agli scopi statutari.</h3>
+<h3>2. Ripartizione Economica delle Quote: I moduli teorici tenuti dai singoli soci possono prevedere una quota di iscrizione per i partecipanti. I proventi raccolti saranno così ripartiti:</h3>
+<ul>
+<li>80% erogato al socio docente/organizzatore della lezione;</li>
+<li>20% trattenuto dall'Associazione e destinato al fondo cassa comune.</li>
+</ul><h3>3. Prerequisiti di Professionalità ed Efficacia: La docenza di tali moduli costituisce un'opportunità riservata ai soci, ma è vincolata a rigidi criteri di competenza scientifico- professionale e reale efficacia. È fatto divieto a chiunque di tenere lezioni su argomenti fuori dalla propria comprovata qualifica o dal proprio percorso professionale riconosciuto (es. chi non ha un curriculum o una competenza specifica in ambito storico-architettonico non potrà svolgere moduli su tale disciplina).</h3>
+<h3>ART. 3 – DISTINZIONE TRA ASSOCIAZIONE (ENTE) E COLLETTIVO ARTISTICO (GRUPPO OPERATIVO)</h3>
+<h3>1. Associazione: È l'organo amministrativo, formale e partecipativo. I soci operano attivamente sul territorio e hanno diritto di parola e di voto. L'appartenenza all'Associazione non può essere utilizzata per fini o promozioni strettamente personali; ogni attività ufficiale riporta la sigla "Lato Bianco" ed eventualmente la carica ricoperta.</h3>
+<h3>2. Collettivo Artistico: È il nucleo creativo selezionato secondo i criteri del Manifesto. Può partecipare a concorsi, bandi e mostre sia come gruppo che con singoli progetti sostenuti dall'Associazione (sfruttando il supporto burocratico-fiscale di Codice Fiscale, Partita IVA e Codice ATECO dell'ente), previa approvazione della commissione interna.</h3>
+<h3>3. Autonomia Individuale: L'artista rimane libero di partecipare individualmente a iniziative e mostre esterne senza il supporto del Collettivo, ma in tal caso senza fare uso del nome o del marchio "Lato Bianco".</h3>
+<h3>ART. 4 – PROPRIETÀ INTELLETTUALE, MOSTRE COLLETTIVE E VENDITA DELLE OPERE</h3>
+<h3>1. Assenza di Commissioni sulle Vendite: L'Associazione è un ente senza scopo di lucro. Nel corso di mostre collettive organizzate sotto l'egida di "Lato Bianco", l'artista mantiene il 100% della proprietà intellettuale e commerciale sulla propria opera. In caso di vendita, l'intero ricavato spetta all'artista: l'Associazione non trattiene alcuna percentuale o commissione, pur essendosi fatta carico delle spese organizzative della mostra.</h3>
+<h3>2. Valorizzazione dei Singoli: Le mostre collettive rappresentano una cassa di risonanza per la promozione dei singoli membri. L'artista espone in modo individuale all'interno del contesto di gruppo: il Collettivo trae valore e prestigio dal profilo dei singoli professionisti che lo compongono, e non viceversa.</h3>
+<h3>3. Donazioni Liberali: L'artista ha la facoltà, a titolo puramente volontario e senza alcun obbligo, di versare una donazione liberale al fondo cassa dell'Associazione per sostenere le future attività comuni.</h3>
+<h3>ART. 5 – USO DEL NOME E RAPPRESENTANZA</h3>
+<h3>1. Qualsiasi intervento, opera, scultura, pubblicazione, conferenza o presenza pubblica condotta a nome di "Lato Bianco" deve essere preventivamente approvata dal Direttivo.</h3>
+<h3>2. Nessun componente può utilizzare il marchio o la reputazione dell'Associazione/Collettivo per iniziative o interessi personali non concordati.</h3>
+<h3>ART. 6 – PROMOZIONE DI BANDI, CALL FOR ARTISTS E APERTURA ALL'ESTERNO</h3>
+<h3>1. Presso la propria sede o in spazi adibiti, l'Associazione ha la facoltà di ideare, promuovere e gestire bandi di concorso, premi e residenze artistiche aperti a creativi esterni al gruppo.</h3>
+<h3>2. Le selezioni e le chiamate pubbliche (call for artists) diffuse sulle piattaforme di settore potranno riguardare diversi ambiti e discipline artistiche, purché rispondano rigorosamente alla visione, ai valori etici e alla filosofia espressa dallo Statuto e dal Manifesto di "Lato Bianco".</h3>
+<h3>3. Tale attività ha il duplice obiettivo di accreditare l'Associazione come realtà professionale riconosciuta nel panorama culturale contemporaneo e di creare una rete di scambio aperta, inclusiva e connessa con l'esterno.</h3>
+
+            </div>
+        </section>
+    
+    </div>
+
+    <footer>
+        <div class="reveal">
+            <h2>Lato Bianco</h2>
+            <p>Associazione Culturale — Carrara</p>
+            <p style="margin-top: 1rem;">
+                <a href="mailto:infoartelatobianco@gmail.com">infoartelatobianco@gmail.com</a> &nbsp;|&nbsp; 
+                <a href="https://instagram.com/LatoBianco" target="_blank">IG: @LatoBianco</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+
+        const toggleBtn = document.getElementById('mobile-nav-toggle');
+        const bottomSheet = document.getElementById('bottom-sheet');
+        const overlay = document.getElementById('bottom-sheet-overlay');
+        const closeBtn = document.getElementById('bottom-sheet-close');
+
+        function openSheet() {
+            bottomSheet.classList.add('open');
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSheet() {
+            bottomSheet.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', openSheet);
+            closeBtn.addEventListener('click', closeSheet);
+            overlay.addEventListener('click', closeSheet);
+            
+            bottomSheet.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeSheet);
+            });
+        }
+    </script>
 </body>
 </html>
