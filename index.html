@@ -82,8 +82,16 @@
             body { padding-top: 0; }
             
             /* Modern mobile viewport height support */
-            .hero { height: 100svh; min-height: 100vh; }
-            .hero img { max-width: 85vw; max-height: 75vh; }
+            .hero { height: 100svh; min-height: 100vh; padding: 0 4vw; }
+            .hero img { 
+                width: 100%; 
+                max-width: 90vw; 
+                height: auto; 
+                max-height: 75vh; 
+                object-fit: contain; 
+                margin: 0 auto; 
+                display: block; 
+            }
             
             .mobile-nav-toggle {
                 display: block;
@@ -182,26 +190,26 @@
             }
 
             /* Riproporzionamento per una lettura eccellente su mobile */
-            .quote-section { padding: 10vh 8vw; }
-            .quote-container blockquote { font-size: 1.7rem; line-height: 1.4; }
-            .quote-author { font-size: 0.8rem; margin-top: 2rem; }
+            .quote-section { padding: 8vh 5vw; }
+            .quote-container blockquote { font-size: 1.4rem; line-height: 1.4; }
+            .quote-author { font-size: 0.8rem; margin-top: 1.5rem; }
 
-            .container { padding: 0 8vw; }
+            .container { padding: 0 4vw; } /* Margini ridotti per allargare la riga di testo */
             
             .editorial-section {
                 grid-template-columns: 1fr;
                 gap: 1rem;
-                padding: 8vh 0;
+                padding: 6vh 0;
             }
-            .section-header { position: relative; top: 0; margin-bottom: 1rem; }
-            .section-number { font-size: 0.85rem; margin-bottom: 0.5rem; }
-            .section-title { font-size: 2.2rem; line-height: 1.1; }
+            .section-header { position: relative; top: 0; margin-bottom: 0.8rem; }
+            .section-number { font-size: 0.8rem; margin-bottom: 0.4rem; }
+            .section-title { font-size: 1.8rem; line-height: 1.2; }
             
-            .section-content { font-size: 1.1rem; line-height: 1.6; }
-            .section-content h3 { font-size: 1.5rem; margin: 2.5rem 0 1rem 0; }
+            .section-content { font-size: 0.95rem; line-height: 1.6; } /* Più piccolo per far stare più parole nella riga */
+            .section-content h3 { font-size: 1.3rem; margin: 2rem 0 1rem 0; }
             
-            footer { padding: 6vh 8vw 15vh 8vw; } /* Spazio enorme sotto per evitare che il bottone CAPITOLI copra i testi */
-            footer h2 { font-size: 1.8rem; }
+            footer { padding: 6vh 6vw 15vh 6vw; } /* Spazio enorme sotto per evitare che il bottone copra i testi */
+            footer h2 { font-size: 1.5rem; }
         }
 
         .reveal {
