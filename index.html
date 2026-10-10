@@ -67,27 +67,30 @@
         @media (max-width: 768px) {
             .brass-nav { display: none; }
             body { padding-top: 0; }
-            .hero { height: 100vh; }
+            
+            /* Modern mobile viewport height support */
+            .hero { height: 100svh; min-height: 100vh; }
+            .hero img { max-width: 85vw; max-height: 75vh; }
             
             .mobile-nav-toggle {
                 display: block;
                 position: fixed;
-                bottom: 25px;
+                bottom: 30px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: var(--brass);
+                background: #000; /* Nero per un look molto più "high-end" ed elegante */
                 color: #fff;
-                padding: 14px 28px;
-                border-radius: 40px;
+                padding: 16px 32px;
+                border-radius: 50px;
                 font-family: 'Inter', sans-serif;
-                font-size: 0.75rem;
-                font-weight: 600;
+                font-size: 0.8rem;
+                font-weight: 500;
                 letter-spacing: 0.15em;
                 z-index: 2000;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.25);
                 cursor: pointer;
                 text-transform: uppercase;
-                transition: transform 0.2s;
+                transition: transform 0.2s, background 0.3s;
             }
             .mobile-nav-toggle:active { transform: translateX(-50%) scale(0.95); }
 
@@ -95,7 +98,9 @@
                 display: block;
                 position: fixed;
                 top: 0; left: 0; width: 100%; height: 100%;
-                background: rgba(0,0,0,0.4);
+                background: rgba(255,255,255,0.8);
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
                 z-index: 2001;
                 opacity: 0;
                 visibility: hidden;
@@ -110,65 +115,81 @@
                 bottom: -100%;
                 left: 0;
                 width: 100%;
-                height: 65vh;
+                height: 75vh;
                 background: #fff;
-                border-top-left-radius: 24px;
-                border-top-right-radius: 24px;
-                box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+                border-top-left-radius: 30px;
+                border-top-right-radius: 30px;
+                box-shadow: 0 -10px 50px rgba(0,0,0,0.15);
                 z-index: 2002;
                 transition: bottom 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-                padding: 30px 25px;
+                padding: 40px 30px;
             }
             .bottom-sheet.open { bottom: 0; }
             
             .bottom-sheet-title {
                 font-family: 'Cormorant Garamond', serif;
-                font-size: 1.8rem;
-                margin-bottom: 20px;
-                text-align: center;
+                font-size: 2rem;
+                margin-bottom: 25px;
+                text-align: left;
                 color: #000;
             }
 
             .bottom-sheet-content {
                 display: flex;
                 flex-direction: column;
-                gap: 15px;
+                gap: 5px;
                 overflow-y: auto;
+                padding-bottom: 20px;
             }
             
             .bottom-sheet a {
                 text-decoration: none;
-                color: #222;
+                color: #000;
                 font-family: 'Inter', sans-serif;
-                font-size: 0.9rem;
-                font-weight: 400;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                padding-bottom: 15px;
+                font-size: 1rem;
+                font-weight: 300;
+                text-transform: none;
+                letter-spacing: 0;
+                padding: 15px 0;
                 border-bottom: 1px solid var(--border);
             }
             
             .bottom-sheet-close {
-                margin-top: 20px;
+                margin-top: 10px;
                 text-align: center;
-                color: var(--gray);
-                font-size: 0.75rem;
-                letter-spacing: 1px;
+                color: #000;
+                font-family: 'Inter', sans-serif;
+                font-size: 0.8rem;
+                font-weight: 500;
+                letter-spacing: 2px;
                 cursor: pointer;
                 text-transform: uppercase;
-                padding: 10px;
+                padding: 15px;
+                background: #f8f8f8;
+                border-radius: 30px;
             }
 
+            /* Riproporzionamento per una lettura eccellente su mobile */
+            .quote-section { padding: 10vh 8vw; }
+            .quote-container blockquote { font-size: 1.7rem; line-height: 1.4; }
+            .quote-author { font-size: 0.8rem; margin-top: 2rem; }
+
+            .container { padding: 0 8vw; }
+            
             .editorial-section {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1rem;
                 padding: 8vh 0;
             }
-            .section-header { position: relative; top: 0; }
-            .quote-container blockquote { font-size: 1.5rem; }
-            .section-title { font-size: 1.6rem; }
-            .section-content { font-size: 0.95rem; }
-            .container { padding: 0 6vw; }
+            .section-header { position: relative; top: 0; margin-bottom: 1rem; }
+            .section-number { font-size: 0.85rem; margin-bottom: 0.5rem; }
+            .section-title { font-size: 2.2rem; line-height: 1.1; }
+            
+            .section-content { font-size: 1.1rem; line-height: 1.6; }
+            .section-content h3 { font-size: 1.5rem; margin: 2.5rem 0 1rem 0; }
+            
+            footer { padding: 6vh 8vw 15vh 8vw; } /* Spazio enorme sotto per evitare che il bottone CAPITOLI copra i testi */
+            footer h2 { font-size: 1.8rem; }
         }
 
         .reveal {
