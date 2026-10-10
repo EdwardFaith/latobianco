@@ -80,16 +80,15 @@
                 transform: translateX(-50%);
                 background: #000; /* Nero per un look molto più "high-end" ed elegante */
                 color: #fff;
-                padding: 16px 32px;
-                border-radius: 50px;
-                font-family: 'Inter', sans-serif;
-                font-size: 0.8rem;
-                font-weight: 500;
-                letter-spacing: 0.15em;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 z-index: 2000;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.25);
                 cursor: pointer;
-                text-transform: uppercase;
                 transition: transform 0.2s, background 0.3s;
             }
             .mobile-nav-toggle:active { transform: translateX(-50%) scale(0.95); }
@@ -381,7 +380,9 @@
 
     </nav>
 
-    <div class="mobile-nav-toggle" id="mobile-nav-toggle">CAPITOLI</div>
+    <div class="mobile-nav-toggle" id="mobile-nav-toggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </div>
     <div class="bottom-sheet-overlay" id="bottom-sheet-overlay"></div>
     <div class="bottom-sheet" id="bottom-sheet">
         <div class="bottom-sheet-title">Indice</div>
