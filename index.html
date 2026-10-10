@@ -190,25 +190,26 @@
             }
 
             /* Riproporzionamento per una lettura eccellente su mobile */
-            .quote-section { padding: 6vh 4vw; }
+            .quote-section { padding: 4vh 15px; }
             .quote-container blockquote { font-size: 1.2rem; line-height: 1.4; }
             .quote-author { font-size: 0.75rem; margin-top: 1.2rem; }
 
-            .container { padding: 0 4vw; } /* Margini ridotti per allargare la riga di testo */
+            .container { padding: 0 15px; } /* Elimina il bordo bianco enorme */
             
             .editorial-section {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                padding: 6vh 0;
+                display: flex;
+                flex-direction: column; /* Forza i titoli a stare SOPRA al testo, non a lato */
+                gap: 0.5rem;
+                padding: 4vh 0;
             }
-            .section-header { position: relative; top: 0; margin-bottom: 0.6rem; }
-            .section-number { font-size: 0.75rem; margin-bottom: 0.2rem; }
-            .section-title { font-size: 1.35rem; line-height: 1.25; }
+            .section-header { position: relative; top: 0; margin-bottom: 0.5rem; }
+            .section-number { font-size: 0.75rem; margin-bottom: 0.2rem; display: block; }
+            .section-title { font-size: 1.35rem; line-height: 1.25; margin-bottom: 1rem; }
             
-            .section-content { font-size: 0.85rem; line-height: 1.55; } /* Testo ancora più proporzionato */
-            .section-content h3 { font-size: 1.1rem; margin: 1.5rem 0 0.8rem 0; }
+            .section-content { font-size: 0.95rem; line-height: 1.5; width: 100%; }
+            .section-content h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem 0; }
             
-            footer { padding: 6vh 6vw 15vh 6vw; } /* Spazio enorme sotto per evitare che il bottone copra i testi */
+            footer { padding: 4vh 15px 12vh 15px; } 
             footer h2 { font-size: 1.5rem; }
         }
 
